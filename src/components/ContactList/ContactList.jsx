@@ -1,6 +1,5 @@
 // ContactList.jsx
 import React from 'react';
-// import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { deleteContact } from '../Redux/contacts/contacts-slice';
 import ContactItem from '../ContactItem/ContactItem';

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { nanoid } from 'nanoid';
-import { addContact } from '../Redux/contacts/contacts-slice'; // Змінений шлях імпорту
+import { addContact } from '../Redux/contacts/contacts-slice'; 
 import style from './ContactForm.module.css';
 
 const ContactForm = ({ contactsName }) => {
@@ -40,7 +40,7 @@ const ContactForm = ({ contactsName }) => {
       number,
     };
 
-    // Виклик дії addContact
+   
     dispatch(addContact(newContact));
     reset();
   };
