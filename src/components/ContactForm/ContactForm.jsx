@@ -1,11 +1,15 @@
+// ContactForm.jsx
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
 import { nanoid } from 'nanoid';
+import { addContact } from '../Redux/contactsSlice';
 import style from './ContactForm.module.css';
 
-const ContactForm = ({ onSubmit, contactsName }) => {
+const ContactForm = ({ contactsName }) => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
+  const dispatch = useDispatch();
 
   const handleChange = (event) => {
     const { name, value } = event.currentTarget;
@@ -38,7 +42,7 @@ const ContactForm = ({ onSubmit, contactsName }) => {
       number,
     };
 
-    onSubmit(newContact);
+    dispatch(addContact(newContact));
     reset();
   };
 
@@ -90,7 +94,6 @@ const ContactForm = ({ onSubmit, contactsName }) => {
 };
 
 ContactForm.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
   contactsName: PropTypes.arrayOf(PropTypes.string.isRequired),
 };
 
