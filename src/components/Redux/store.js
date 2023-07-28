@@ -1,13 +1,15 @@
 // store.js
-import { configureStore } from '@reduxjs/toolkit';
+import { configureStore, createAction } from '@reduxjs/toolkit';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import contactsReducer from './contactsSlice';
+import contactsReducer from '../Redux/contactsSlice';
+
+// Створюємо серіалізовану дію для register
+export const registerAction = createAction('register');
 
 const persistConfig = {
   key: 'root',
   storage,
-  blacklist: ['register'], 
 };
 
 const persistedReducer = persistReducer(persistConfig, contactsReducer);

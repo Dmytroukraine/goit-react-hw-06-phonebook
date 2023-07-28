@@ -1,9 +1,8 @@
 // ContactForm.jsx
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { nanoid } from 'nanoid';
-import { addContact } from '../Redux/contactsSlice';
+import { registerAction } from '../Redux/store';
 import style from './ContactForm.module.css';
 
 const ContactForm = ({ contactsName }) => {
@@ -36,13 +35,11 @@ const ContactForm = ({ contactsName }) => {
       return alert(`${name} is already in contacts`);
     }
 
-    const newContact = {
-      id: nanoid(),
-      name,
-      number,
-    };
+    // Генеруємо унікальний ідентифікатор
+    const id = nanoid();
 
-    dispatch(addContact(newContact));
+    // Викликаємо дію registerAction з інформацією, що потрібно зберегти
+    dispatch(registerAction({ id, name, number }));
     reset();
   };
 
@@ -91,10 +88,6 @@ const ContactForm = ({ contactsName }) => {
       </button>
     </form>
   );
-};
-
-ContactForm.propTypes = {
-  contactsName: PropTypes.arrayOf(PropTypes.string.isRequired),
 };
 
 export default ContactForm;

@@ -1,5 +1,5 @@
 // App.jsx
-import React from 'react';
+import React, { useState } from 'react';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { store, persistor } from './Redux/store';
@@ -9,6 +9,12 @@ import ContactList from './ContactList/ContactList';
 import style from './App.module.css';
 
 const App = () => {
+  const [filter, setFilter] = useState('');
+
+  const changeFilter = (event) => {
+    setFilter(event.currentTarget.value);
+  };
+
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
@@ -17,7 +23,7 @@ const App = () => {
           <ContactForm />
           <h2 className={style.title}>Contacts</h2>
           <div className={style.contact_list_container}>
-            <Filter />
+            <Filter value={filter} onChange={changeFilter} />
             <ContactList />
           </div>
         </div>
