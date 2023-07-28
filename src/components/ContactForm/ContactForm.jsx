@@ -1,8 +1,7 @@
-// ContactForm.jsx
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { nanoid } from 'nanoid';
-import { registerAction } from '../Redux/store';
+import { addContact } from '../Redux/contacts/contacts-slice'; // Змінений шлях імпорту
 import style from './ContactForm.module.css';
 
 const ContactForm = ({ contactsName }) => {
@@ -35,11 +34,14 @@ const ContactForm = ({ contactsName }) => {
       return alert(`${name} is already in contacts`);
     }
 
-    // Генеруємо унікальний ідентифікатор
-    const id = nanoid();
+    const newContact = {
+      id: nanoid(),
+      name,
+      number,
+    };
 
-    // Викликаємо дію registerAction з інформацією, що потрібно зберегти
-    dispatch(registerAction({ id, name, number }));
+    // Виклик дії addContact
+    dispatch(addContact(newContact));
     reset();
   };
 
