@@ -1,10 +1,11 @@
+// ContactForm.jsx
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { nanoid } from 'nanoid';
 import { addContact } from '../Redux/contacts/contacts-slice'; 
 import style from './ContactForm.module.css';
 
-const ContactForm = ({ contactsName }) => {
+const ContactForm = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
   const dispatch = useDispatch();
@@ -12,7 +13,7 @@ const ContactForm = ({ contactsName }) => {
   const handleChange = (event) => {
     const { name, value } = event.currentTarget;
 
-    if (name === 'number' && !/^[0-9\s-+()]*$/.test(value)) {
+    if (name === 'number' && !/^[0-9\s()+-]*$/.test(value)) {
       alert('Введіть лише цифри, символи та пробіл!');
       return;
     }
@@ -27,20 +28,12 @@ const ContactForm = ({ contactsName }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    const matchName = contactsName.some(
-      (contactName) => name.toLowerCase() === contactName.toLowerCase()
-    );
-    if (matchName) {
-      return alert(`${name} is already in contacts`);
-    }
-
     const newContact = {
       id: nanoid(),
       name,
       number,
     };
-
-   
+  
     dispatch(addContact(newContact));
     reset();
   };
@@ -58,7 +51,7 @@ const ContactForm = ({ contactsName }) => {
           type="text"
           name="name"
           className={style.input}
-          pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+          pattern="^[a-zA-Zа-яА-Я]+([' -][a-zA-Zа-яА-Я]*)*$"
           title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
           required
           onChange={handleChange}
@@ -73,7 +66,7 @@ const ContactForm = ({ contactsName }) => {
           type="tel"
           name="number"
           className={style.input}
-          pattern="[0-9\s-+()]*"
+          pattern="[0-9\s()+-]*"
           title="Phone number must contain only digits, symbols (+, -, (, ), space)"
           required
           onChange={handleChange}

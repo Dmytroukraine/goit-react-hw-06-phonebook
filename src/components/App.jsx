@@ -24,7 +24,7 @@ const App = () => {
           <h2 className={style.title}>Contacts</h2>
           <div className={style.contact_list_container}>
             <Filter value={filter} onChange={changeFilter} />
-            <ContactList />
+            <ContactList filter={filter} />
           </div>
         </div>
       </PersistGate>

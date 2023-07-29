@@ -2,17 +2,14 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { deleteContact } from '../Redux/contacts/contacts-slice';
+import { getFilteredContacts } from '../Redux/contacts/contacts-selectors';
 import ContactItem from '../ContactItem/ContactItem';
 import style from './ContactList.module.css';
 
 const ContactList = () => {
-  const visibleContacts = useSelector((state) => {
-    const { contacts, filter } = state;
-    const normalizeFilter = filter.toLowerCase();
-    return contacts.filter(({ name }) =>
-      name.toLowerCase().includes(normalizeFilter)
-    );
-  });
+  // eslint-disable-next-line no-unused-vars
+  const filter = useSelector((state) => state.filter);
+  const visibleContacts = useSelector(getFilteredContacts);
   const dispatch = useDispatch();
 
   const handleDeleteContact = (contactId) => {

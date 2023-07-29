@@ -1,8 +1,16 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { useSelector, useDispatch } from 'react-redux';
+import { setFilter } from '../Redux/filter/filter-slice';
 import style from './Filter.module.css';
 
-const Filter = ({ value, onChange }) => {
+const Filter = () => {
+  const dispatch = useDispatch();
+  const filter = useSelector((state) => state.filter);
+
+  const handleChange = (event) => {
+    dispatch(setFilter(event.currentTarget.value));
+  };
+
   return (
     <div className={style.searchContainer}>
       <label className={style.search}>
@@ -12,18 +20,13 @@ const Filter = ({ value, onChange }) => {
           placeholder=" "
           className={style.inputName}
           title="Enter search name"
-          onChange={onChange}
-          value={value}
+          onChange={handleChange}
+          value={filter}
         />
         <button type="reset"></button>
       </label>
     </div>
   );
-};
-
-Filter.propTypes = {
-  value: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
 };
 
 export default Filter;
