@@ -1,4 +1,4 @@
-// contacts-slice.js
+// contacts-slice.js залишаємо без змін, видаляємо перевірку та алерт
 import { createSlice } from '@reduxjs/toolkit';
 import { nanoid } from '@reduxjs/toolkit';
 
@@ -7,12 +7,6 @@ const contactsSlice = createSlice({
   initialState: [],
   reducers: {
     addContact: (store, { payload }) => {
-      const isContactExist = store.find((contact) => contact.name.toLowerCase() === payload.name.toLowerCase());
-      if (isContactExist) {
-        alert(`User with name ${payload.name} is already in contacts`);
-        return;
-      }
-
       store.push({ ...payload, id: nanoid() });
     },
     deleteContact: (store, { payload }) => store.filter((item) => item.id !== payload),
